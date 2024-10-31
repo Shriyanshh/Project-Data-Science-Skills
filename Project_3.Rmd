@@ -1,0 +1,75 @@
+---
+title: "Project 3"
+author: "Jayden Jiang"
+date: "2024-10-31"
+output: html_document
+---
+
+## Library 
+```{r}
+library(tidyverse)
+library(tidyr)
+library(dplyr)
+library(stringr)
+library(janitor)
+```
+## Loading The Data
+```{r}
+job_data <- read.csv("https://raw.githubusercontent.com/Shriyanshh/Project-Data-Science-Skills/refs/heads/main/job_postings%20with%20skills.csv")
+
+head(job_data)
+```
+## Data Cleaning
+```{r}
+# create a signle row for each skill listed in the job posts.
+# Remove non-alphanumeric characters, exter white space, and convert all text to lowercase.
+
+job_data <- clean_names(job_data)
+str(job_data)
+```
+## Extract and Separate Skills
+```{r}
+# Each job posting contains multiple skills listed together. We will split these into individual rows. 
+
+# Assuming 'skills' column contains comma-separated skills
+job_data <- job_data %>%
+  separate_rows(job_skills, sep = ",") %>%
+  mutate(job_skills = str_trim(job_skills))
+
+head(job_data)
+```
+## Text Normalization
+```{r}
+# remove any non-alphanumeric characters, extra spaces, and convert everything to lowercase to ensure uniformity
+
+job_data <- job_data %>%
+  mutate(job_skills = tolower(job_skills)) %>%
+  mutate(job_skills = str_replace_all(job_skills, "[^a-z0-9]",""))
+
+head(job_data)
+```
+## Tidy The Data
+```{r}
+# Remove duplicate rows to keep unique skills
+job_data <- job_data %>% distinct()
+
+# Count frequency of each skill
+skill_counts <- job_data %>%
+  count(job_skills, sort = TRUE)
+
+# Display the most common skills
+head(skill_counts, 10)
+```
+## Visualization of Top Data Science Skills 
+```{r}
+# Plot the top 10 most common skills
+top_skills <- skill_counts %>% top_n(10, n)
+
+ggplot(top_skills, aes(x = reorder(job_skills, n), y = n)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  coord_flip() +
+  labs(title = "Top 10 Data Science Skills in Job Posting",
+       x = "Skills",
+       y = "Frequency")
+```
+
