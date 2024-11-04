@@ -29,9 +29,9 @@ This comprehensive analysis provided insight into the most valued data science s
 
 # Team Collaboration
 
-1.  Shri Tripathi: Web scapping, Tidying, Analysis, Write Up
+1.  Shri Tripathi: Web scraping, Tidying, Analysis, Write Up
 2.  Jayden Jiang: ER Diagram, Database, Tidying, Write Up
-3.  Erick Hadi: Web scapping, Analysis, Database
+3.  Erick Hadi: Web scraping, Analysis, Database, Write Up
 
 ## Collaboration Tools
 
@@ -39,7 +39,7 @@ This comprehensive analysis provided insight into the most valued data science s
     This will facilitate constant and efficient communication among team members.
 
 -   **Code Sharing**: We will use GitHub as our version control system for sharing and collaborating on code.
-    GitHub will help us manage contributions, track changes, and work seamlessly together on the codebase.
+    GitHub will help us manage contributions, track changes, and work seamlessly on the codebase.
 
 -   **Project Documentation**: Project documentation and shared resources, such as reports, meeting notes, and other essential documents, will be hosted on GitHub.
     This platform will also act as a backup repository for non-code-related materials.
@@ -84,7 +84,7 @@ There is an API restriction.
 So, we used Parsehub and Octoparse to scrap job postings from LinkedIn using the keywords: 'data', 'data analyst', 'data scientist', and 'data engineer'.
 
 From Octoparse, we were able to obtain 7236 job postings from LinkedIn and over 1000 job postings from Indeed.
-However, due to incomplete data set in Glassdoor, we decided to use Linkedin dataset.
+However, due to an incomplete data set in Glassdoor, we decided to use Linkedin dataset.
 After removing duplicate files, we end up with 1342 job postings from Linkedin.
 
 <a href="https://github.com/Shriyanshh/Project-Data-Science-Skills/blob/main/DATA%20607%20Project%203%20Acquiring%20Dataset.Rmd"> Project 3 Acquiring the data </a>
@@ -96,7 +96,7 @@ tidied_Linkedin <- read.csv('https://raw.githubusercontent.com/Shriyanshh/Projec
 
 # Tidying the Dataframe
 
-Below are some of things we did to tidy our dataframe:
+Below are some of the things we did to tidy our dataframe:
 
 -   Remove leading and trailing white spaces
 
