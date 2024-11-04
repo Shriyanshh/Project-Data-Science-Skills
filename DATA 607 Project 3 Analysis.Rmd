@@ -194,13 +194,13 @@ The top 10 most frequent technical skills found in the job postings are Excel, B
 ```{r}
 technical_skills <- tidied_Linkedin[c("Titile", "Company","City","State","Seniority_level","Employment_type","Industry","Function", "Education","Remote", "Salary","Description")]
 
-technical <- c("(?i)spss","(?i)stata", "(?i)sas","(?i)scala","(?i)matlab", "(?i)Swift", "(?i)Julia","(?i)Hadoop","(?i)Spark","(?i)Pig","(?i)Tableau","(?i)REDCap", "(?i)Qualtrics", "(?i)Power BI", "(?i)Dedoose", "(?i)Atlas TI", "(?i)NVivo", "(?i)MPlus", "(?i)Mixor", "(?i)dbt", "(?i)BigQuery|big query", "(?i)Superset", "(?i)Baseten", "(?i)Airflow","(?i)ETL/ELT pipelines","(?i)Google Analytics", "(?i)Parse.ly", "(?i)Chartbeat","(?i)Excel", "(?i)Plotly", "(?i)Google Data Studio", "(?i)Looker","(?i)Spotfire","(?i)Smartsheet","(?i)\\bBI\\b|Business Intelligence","(?i)C#|C#.net","(?i)VBA","(?i)DevOps")
+technical <- c("(?i)spss","(?i)stata", "(?i)sas","(?i)matlab", "(?i)Swift", "(?i)Julia","(?i)Hadoop","(?i)Spark","(?i)Pig","(?i)Tableau","(?i)REDCap", "(?i)Qualtrics", "(?i)Power BI", "(?i)Dedoose", "(?i)Atlas TI", "(?i)NVivo", "(?i)MPlus", "(?i)Mixor", "(?i)dbt", "(?i)BigQuery|big query", "(?i)Superset", "(?i)Baseten", "(?i)Airflow","(?i)ETL/ELT pipelines","(?i)Google Analytics", "(?i)Parse.ly", "(?i)Chartbeat","(?i)Excel", "(?i)Plotly", "(?i)Google Data Studio", "(?i)Looker","(?i)Spotfire","(?i)Smartsheet","(?i)\\bBI\\b|Business Intelligence","(?i)C#|C#.net","(?i)VBA","(?i)DevOps")
 
 for(i in technical){
    technical_skills[i] <- +str_detect(apply(technical_skills, 1, paste0, collapse = " ", ignore_case = TRUE), technical[which(technical == i)])
 }
 
-colnames(technical_skills) <- c("Job_Title", "Company","City","State","Seniority_level","Employment_type","Industry","Job_Function", "Education","Remote", "Salary","Job_Description", "SPSS","Stata", "SAS","Scala","MATLAB", "Swift", "Julia","Hadoop","Spark","Pig","Tableau","REDCap", "Qualtrics", "Power BI", "Dedoose", "Atlas TI", "NVivo", "MPlus", "Mixor", "dbt", "BigQuery|big query", "Superset", "Baseten", "Airflow","ETL/ELT pipelines","Google Analytics", "Parse.ly", "Chartbeat","Excel", "Plotly", "Google Data Studio", "Looker","Spotfire","Smartsheet","Business Intelligence","C#|C#.net","VBA","DevOps")
+colnames(technical_skills) <- c("Job_Title", "Company","City","State","Seniority_level","Employment_type","Industry","Job_Function", "Education","Remote", "Salary","Job_Description", "SPSS","Stata", "SAS","MATLAB", "Swift", "Julia","Hadoop","Spark","Pig","Tableau","REDCap", "Qualtrics", "Power BI", "Dedoose", "Atlas TI", "NVivo", "MPlus", "Mixor", "dbt", "BigQuery|big query", "Superset", "Baseten", "Airflow","ETL/ELT pipelines","Google Analytics", "Parse.ly", "Chartbeat","Excel", "Plotly", "Google Data Studio", "Looker","Spotfire","Smartsheet","Business Intelligence","C#|C#.net","VBA","DevOps")
 ```
 
 ```{r}
@@ -347,6 +347,21 @@ frequent_nontechnical_skill %>%
   xlab("Skill")
 ```
 
+# Analysis of job postings by Education:
+Most Job postings don't state whether they require a degree or not. However, for those that do require a degree, bachelors is the most common. And job postings rarely ask for Masters and almost never a Doctorate.
+
+```{r}
+education_tidy <- tidied_Linkedin[, c("X", "Education")]
+```
+```{r}
+ggplot(education_tidy, aes(x = Education)) +
+  geom_bar(stat = "count", fill = 'lightblue') +
+  coord_flip() + ggtitle("Distribution of Education Level") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ylab("Number of Jobs Requiring Degree") +
+  xlab("Degree")
+```
+
 # Analysis of job postings by State:
 
 The top three states with the highest number of data science job postings are California, New York, and Texas.
@@ -437,10 +452,10 @@ job_title <- job_title  %>%
 # Conclusion:
 
 As illustrated in our tables and graphs, the analysis revealed that 'analysis,' 'database,' and 'technical' emerged as the most frequently mentioned general skills across the job postings we collected.
-Under the umbrella of technical skills, Excel, Business Intelligence, and Scala were the top three cited skills.
-Interestingly, Tableau, which also fell under this category, did not make it into the top three, which was unexpected.
+Under the technical skills, Excel, Business Intelligence, and Tableau and Spark were the top three cited skills.
+For programming languages, it came as no surprise that Python and SQL were the top 2 languages. However Scala seemed to beat out R by a small margin. 
 On the non-technical side, communication was the most frequently mentioned skill, significantly outpacing others, followed by organization and being detail-oriented.
-The prominence of communication as the top skill was unsurprising.
+The prominence of communication as the top skill was unsurprising. 
 
 **Limitations**: Initially, our dataset contained over 7,000 job postings from LinkedIn.
 However, after removing duplicate entries, we were left with only 1,342 job postings for our analysis.
